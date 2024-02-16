@@ -1,0 +1,26 @@
+JAVA p.656
+    - 컬렉션(수집) 프레임워크(미리 만들어진 클래스/인터페이스)
+    - 1. List컬렉션
+        - 저장순서 보장O/인덱스O, 중복허용
+        - List 인터페이스
+            - 구현클래스 : ArrayList, Vector, LinkedList
+            - 사용방법 : .add(), .set(), .contains(), .get(), .inEmpty(), .size(), .clear(), .remove()
+            - 순회방법
+                1. for(int i=0; i<리스트명.size(); i++){실행문;}
+                2. for(타입 반복변수명 : 리스트명){실행문;}
+                3. 리스트명.forEach(반복변수명 -> 실행문);
+
+    - 2. Set 컬렉션
+        - 저장순서 보장X/인덱스X, 중복 허용 안함
+        - Set 인터페이스
+            - 구현클래스 : HashSet
+            - 사용방법 : .add(), .contains(), .inEmpty(), .size(), .clear(), .remove()
+                        .iterator() : 반복자 객체 반환 함수(반복자 객체 : .next(), hasNext())
+            - 순회방법
+                1. 반복자객체 이용하는 방법
+                    Iterator<E> 반복자객체명 = SET컬렉션명.iterator()
+                    while(반복자객체명.hasNext){
+                        반복자객체명.next();
+                    }
+                2. for(타입 반복변수명 : Set컬렉션명){실행문;}
+                3. Set컬렉션명.forEach(반복변수명 -> 실행문);

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div>
+        할일 내용 : <input type="text" placeholder="할일내용" id="content"/>
+        마감일 : <input type="date" id="deadline"/>
+        <button type="button" onclick="doPost()">등록</button>
+        <!--<button type="button" onclick="클릭했을때 호출할 JS함수명()">등록</button>-->
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>할일상태</th>
+                <th>날짜</th>
+                <th>상태</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- js가 html 넣어줄 자리 -->
+        </tbody>
+    </table>
+
+    <!-- 스프링(자바) 컨트롤에게 요청/응답 받기. -->
+    <!-- 1. resource -> static 폴더내 html 만들기 -->
+    <!-- 2. 스프링 재시작해서 html 확인 http://localhost/todo.html -->
+        <!-- 머스테치와 다르게 -->
+    <!-- 3. resource -> static 폴더내 js 만들기 -->
+    <!-- JS에서 자바와 통신하는 함수 작성하기 -->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="todo.js"></script>
+
+</body>
+</html>

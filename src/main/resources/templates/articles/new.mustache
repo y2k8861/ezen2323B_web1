@@ -1,0 +1,9 @@
+{{>layouts/header}}  <!-- 헤더 파일 호출 -->
+
+<form action="/articles/create" method="post">
+    <label>제목</label><input name="title" /> <br/>
+    <label>내용</label><textarea name="content"></textarea><br/>
+    <button type="submit">전송</button>
+</form>
+<a href="/articles">뒤로가기</a>
+{{>layouts/footer}}  <!-- 푸터 파일 호출 -->

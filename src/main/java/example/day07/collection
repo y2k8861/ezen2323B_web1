@@ -1,0 +1,7 @@
+컬렉션 프레임워크
+    1. List : 저장순서/인덱스, 중복허용
+        ArrayList, Vector, LinkedList
+    2. Set  : 저장순서/인덱스 없고, 중복허용 안함
+        HashSet, TreeSet
+    3. Map  : entry(key,value) 저장, Key 중복 불가능
+        HashMap, HashTable, TreeMap
