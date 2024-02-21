@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="display: flex;">
+
+<div>
+    <h1>사원관리 페이지</h1>
+    <table>
+        <tr>
+            <th>사원명 : </th>
+            <td><input name="sname" id="sname" /></td>
+        </tr>
+
+        <tr>
+            <th>사원연락처 : </th>
+            <td><input name="sphone" id="sphone" /></td>
+        </tr>
+    </table>
+    <button type="submit" onclick="inputStaff()">등록</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th> 번호 </th>
+                <th> 사원명 </th> 
+                <th> 연락처 </th> 
+                <th> 비고 </th>
+            </tr>
+            
+        </thead>
+            
+        <tbody id="staffList">
+           
+       </tbody>
+    </table>
+    </div>
+    <div style="margin-left: 10px; display: none;" id="scoreView">
+        <h1 id="scoreH1">000 점수 페이지</h1>
+        <table id="scoreInput">
+            <tr>
+                <th>내역 : </th>
+                <td><input name="sccontent" id="sccontent" /></td>
+            </tr>
+
+            <tr>
+                <th>점수 : </th>
+                <td><input name="scscore" id="scscore" /></td>
+            </tr>
+        </table>
+        <button type="submit" id="scoreBtn" onclick="inputStaff()">등록</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th> 번호 </th>
+                    <th> 사원번호 </th> 
+                    <th> 내역 </th> 
+                    <th> 점수 </th>
+                    <th> 날짜 </th>
+                </tr>            
+            </thead>
+                
+            <tbody id="scoreList">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/staffManagement.js"></script>
+
+</body>
+</html>
