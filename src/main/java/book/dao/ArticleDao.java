@@ -3,6 +3,7 @@ package book.dao;
 import book.dto.ArticleForm;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,6 @@ public class ArticleDao {
 
             // 4.
             int count = ps.executeUpdate();
-
             rs = ps.getGeneratedKeys();
             if(rs.next()){
                 System.out.println("방금 자동으로 생선된 pk(id) : " + rs.getLong(1));

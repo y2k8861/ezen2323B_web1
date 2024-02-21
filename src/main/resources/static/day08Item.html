@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>2인 과제 페이지</h1>
+<form id="form" action="javascript:input()" method="post">
+    <table>
+        <tr>
+            <th>이름</th>
+            <td><input name="name" id="name" /></td>
+        </tr>
+
+        <tr>
+            <th>수량</th>
+            <td><input name="count" id="count" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" /></td>
+        </tr>
+
+        <tr>
+            <th>가격</th>
+            <td><input name="price" id="price" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" /></td>
+        </tr>
+    </table>
+    <button type="submit">등록</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>이름</th>
+        <th>수량</th>
+        <th>가격</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/js/item.js">    </script>
+</body>
+</html>
