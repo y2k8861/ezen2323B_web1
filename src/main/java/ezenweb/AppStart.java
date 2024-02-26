@@ -9,3 +9,7 @@ public class AppStart {
         SpringApplication.run(AppStart.class);
     }
 }
+
+// 홈페이지 favicon
+    // ico 확장자 파일
+    // - resources - static - favicon.ico

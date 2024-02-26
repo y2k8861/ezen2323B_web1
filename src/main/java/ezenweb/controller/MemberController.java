@@ -3,6 +3,7 @@ package ezenweb.controller;
 import ezenweb.model.dao.MemberDao;
 import ezenweb.model.dto.LoginDto;
 import ezenweb.model.dto.MemberDto;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MemberController {
 
     @Autowired
-    MemberDao memberDao;
+    private MemberDao memberDao;
+    @Autowired
+    private HttpServletRequest request;
 
     // 1단계. V <----> C 사이의 HTTP 통신방식 설계
     // 2단계. Controller Mapping 함수 선언하고 통신체크 (API Tester)
@@ -49,7 +52,48 @@ public class MemberController {
         System.out.println("loginDto = " + loginDto);
         // --
         boolean result = memberDao.doPostLogin(loginDto); // Dao처리
+//        boolean result = true; // Dao처리
+        // 로그인 성공시(세션)
+            // 세션 저장소 : 톰캣서버에 브라우저 마다의 메모리 할당
+            // 세션 객체 타입 : Object(여러가지의 타입들을 저장할려고)
+            // 1. Http 요청 객체 호출.    HttpServlertRequest
+            // 2. Http 세션 객체 호출     .getSesstion()
+            // 3. Http 세션 데이터 저장    .setAttribute("세션명",데이터);     -- 자동형 변환(자식 -> 부모)
+            // -  Http 세션 데이터 호출    .getAttribute("세션명");           -- 강제형 변환(부모 -> 자식) / 캐스팅
+            // -  Http 세션 데이터 초기화   .invalidate
+        if(result){
+            request.getSession().setAttribute("loginDto",loginDto.getId());    // loginDto : 3
+        }
         return result; // Dao 요청후 응답 결과를 보내기
+    }
+
+    // 2-2 로그인 여부 확인 요청
+    @GetMapping("/member/login/check")
+    @ResponseBody
+    public String doGetLoginCheck(){
+        // * 로그인 여부 확인 = 세션이 있다 없다 확인
+            // 1. http 요청 객체 호출, 2.http세션 객체 호출 3.http세션 데이터 호출
+        String loginDto = "";
+        Object sesstionObj = request.getSession().getAttribute("loginDto");
+        if(sesstionObj != null){
+            loginDto = (String)sesstionObj;
+        }
+        return loginDto;
+    }
+
+
+    // 2-3 로그아웃 / 세션 초기화
+    @GetMapping("/member/logout")
+    @ResponseBody
+    public boolean doGetLogout(){
+        // 로그인 관련 세션 초기화
+            // 1. 모든 세션 초기화
+            request.getSession().invalidate();  // 현재 요청 보낸 브라우저의 모든 세션 초기화
+            // 2. 특정 세션 초기화 => 동일한 세션속성명에 null 대입한다.
+            // request.getSession().setAttribute("loginDto",null);
+        int loginDto = 0;
+        return true;
+        // 로그아웃 성공시 => 메인페이지 또는 로그인 페이지 이동
     }
 
     // 3. 회원가입 페이지 요청

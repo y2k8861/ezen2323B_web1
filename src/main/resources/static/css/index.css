@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+}
+
+html {font-size: 16px;}
+
+#header .navbar {background-color: #fff!important;}
+#header .topMenu {display:flex; justify-content: space-between; align-items: center; width: 100%;}
+#header .topMenu a {font-size: 1.5em; color: #333; transition: all 0.3s;}
+#header .topMenu a:hover {color: pink;}

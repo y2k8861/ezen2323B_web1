@@ -7,21 +7,9 @@ import org.springframework.stereotype.Component;
 import java.sql.*;
 
 @Component
-public class MemberDao {
-    private Connection conn;
-    private PreparedStatement ps;
-    private ResultSet rs;
-    public MemberDao(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ezenweb", "root", "1234");
-            System.out.println("DB연동 성공");
-        } catch (Exception e){
-            System.out.println(e);
-            System.out.println("DB연동 실패");
-        }
-    }
+public class MemberDao extends Dao {
 
+    // 1. 회원가입 메소드
     public boolean doPostSignup(MemberDto memberDto){
         boolean result = false;
         try {
@@ -47,6 +35,7 @@ public class MemberDao {
         return result;
     }
 
+    // 2. 로그인 메소드
     public boolean doPostLogin(LoginDto loginDto){
         boolean result = false;
         try {

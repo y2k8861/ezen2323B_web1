@@ -1,11 +1,9 @@
 {{>ezenweb/header}}
 <h3>로그인 페이지</h3>
-<form id="loginForm" action="javascript:doPostLogin()" method="post">
     <label>id : </label> <input type="text" name="id" id="id" />
     <label>pw : </label> <input type="password" name="pw" id="pw" />
-    <button type="submit">로그인</button>
+    <button onclick="doPostLogin()" type="button">로그인</button>
     <a href="/member/signup">회원가입</a>
-</form>
 
 <script src="/js/member.js"></script>
 {{>ezenweb/footer}}

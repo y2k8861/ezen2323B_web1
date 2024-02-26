@@ -56,7 +56,7 @@ function doPostLogin(){
                 console.log(result);
                 if(result == true){
                     alert('로그인 성공');
-                    location.href="/member/update";
+                    location.href="/"; //로그인 성공시 메인페이지로이동
                 } else {
                     alert('로그인 실패')
                 }
