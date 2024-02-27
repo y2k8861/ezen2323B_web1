@@ -1,5 +1,7 @@
 package ezenweb.controller;
 
+import ezenweb.Service.FileService;
+import ezenweb.Service.MemberService;
 import ezenweb.model.dao.MemberDao;
 import ezenweb.model.dto.LoginDto;
 import ezenweb.model.dto.MemberDto;
@@ -11,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 @Controller
 public class MemberController {
 
@@ -18,6 +24,9 @@ public class MemberController {
     private MemberDao memberDao;
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private MemberService memberService;
 
     // 1단계. V <----> C 사이의 HTTP 통신방식 설계
     // 2단계. Controller Mapping 함수 선언하고 통신체크 (API Tester)
@@ -29,15 +38,7 @@ public class MemberController {
     @PostMapping("/member/signup")
     @ResponseBody // 응답방식
     public boolean doPostSignup(MemberDto memberDto){
-        /*
-            params
-            {id="아이디",pw="비밀번호",name="이름",email="이메일",phone="전화번호",img="프로필사진"}
-        */
-        System.out.println("MemberController.signup");
-        System.out.println("memberDto = " + memberDto);
-        // --
-        boolean result = memberDao.doPostSignup(memberDto); // Dao처리
-        return result; // Dao 요청후 응답 결과를 보내기
+        return memberService.doPostSignUp(memberDto);
     }
 
     // 2. 로그인 처리요청

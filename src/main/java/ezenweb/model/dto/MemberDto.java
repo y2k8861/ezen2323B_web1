@@ -1,6 +1,7 @@
 package ezenweb.model.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -8,11 +9,13 @@ import lombok.*;
 @Setter
 @ToString
 public class MemberDto {
-    private int no;
+    private int no;             // type = "text"(자동타입변환 -> int)
     private String id;
     private String pw;
     private String name;
     private String email;
     private String phone;
-    private String img;
+    // private String img;      // type = "text"(String)
+    private MultipartFile img;  // type = "file"(MultipartFile) 첨부
+    private String uuidFile;    // uuid + file
 }
