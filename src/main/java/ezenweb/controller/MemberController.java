@@ -62,7 +62,8 @@ public class MemberController {
             // 3. Http 세션 데이터 저장    .setAttribute("세션명",데이터);     -- 자동형 변환(자식 -> 부모)
             // -  Http 세션 데이터 호출    .getAttribute("세션명");           -- 강제형 변환(부모 -> 자식) / 캐스팅
             // -  Http 세션 데이터 초기화   .invalidate
-        if(result){
+        if(result){ // 만약에 로그인 성공하면 세션 부여
+            // 세션에 저장할 내용물들을 구성(식별키 만)
             request.getSession().setAttribute("loginDto",loginDto.getId());    // loginDto : 3
         }
         return result; // Dao 요청후 응답 결과를 보내기
@@ -95,6 +96,22 @@ public class MemberController {
         int loginDto = 0;
         return true;
         // 로그아웃 성공시 => 메인페이지 또는 로그인 페이지 이동
+    }
+
+    // 2-4 회원정보 요청(로그인된 회원 요청)
+    @GetMapping("/member/login/info")
+    @ResponseBody
+    public MemberDto doGetLoginInfo(String id){
+        return memberService.doGetLoginInfo(id);
+    }
+
+    // 2-5 아이디 중복 체크 요청
+    @GetMapping("/member/find/idCheck")
+    @ResponseBody
+    public boolean doGetFindIdCheck(String id){
+        System.out.println("MemberController.doGetFindIdCheck");
+        System.out.println("id = " + id);
+        return memberService.doGetFindIdCheck(id);
     }
 
     // 3. 회원가입 페이지 요청

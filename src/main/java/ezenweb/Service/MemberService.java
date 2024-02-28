@@ -16,13 +16,28 @@ public class MemberService {
     // 1. 회원가입 서비스
     public boolean doPostSignUp(MemberDto memberDto){
         // 1. 파일처리
-        String fileName = fileService.fileUpload(memberDto.getImg());
-        if(fileName != null){
+        String fileName = "default.jpg";
+        if (!memberDto.getImg().isEmpty()){
             // 2. DB처리
             // Dto에 업로드 성공한 파일명 대입한다.
-            memberDto.setUuidFile(fileName);
-            return memberDao.doPostSignup(memberDto);
+            fileName = fileService.fileUpload(memberDto.getImg());
+            if(fileName == null){return false;}
         }
-        return false;
+        memberDto.setUuidFile(fileName);
+        return memberDao.doPostSignup(memberDto);
+    }
+
+    // 2. 로그인 서비스
+
+    // 3. 회원정보 요청서비스
+    public MemberDto doGetLoginInfo(String id){
+        return memberDao.doGetLoginInfo(id);
+    }
+
+    // 2-4 아이디 중복 체크 요청
+    public boolean doGetFindIdCheck(String id){
+        System.out.println("MemberController.doGetFindIdCheck");
+        System.out.println("id = " + id);
+        return memberDao.doGetFindIdCheck(id);
     }
 }

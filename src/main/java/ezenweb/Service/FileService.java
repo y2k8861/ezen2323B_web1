@@ -14,7 +14,7 @@ public class FileService {
 
     // 어디에(PATH) 누구를(파일객체)
     // * 업로드할 경로 설정(내장 톰캣 경로)
-    String uploadPath = "C:\\Users\\504\\Desktop\\ezen2323B_web1\\build\\resources\\main\\static\\img\\";
+    String uploadPath = "C:\\Users\\504\\Desktop\\ezen2323B_web1\\build\\resources\\main\\static\\img\\upload\\";
 
     // 1. 업로드 메소드
     public String fileUpload(MultipartFile multipartFile){
