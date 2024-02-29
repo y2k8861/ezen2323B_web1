@@ -20,3 +20,7 @@ html {font-size: 16px;}
 #header .topMenu a:hover {color: pink;}
 #header .topMenu li.nav-item .profilimg {width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; overflow: hidden; margin-right: 10px; border-radius: 50%;}
 #header .topMenu li.nav-item img {max-height: 100%;}
+
+@media (max-width:991px){
+    #header .topMenu {display: block;}
+}

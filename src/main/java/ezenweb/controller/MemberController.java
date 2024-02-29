@@ -38,6 +38,7 @@ public class MemberController {
     @PostMapping("/member/signup")
     @ResponseBody // 응답방식
     public boolean doPostSignup(MemberDto memberDto){
+
         return memberService.doPostSignUp(memberDto);
     }
 

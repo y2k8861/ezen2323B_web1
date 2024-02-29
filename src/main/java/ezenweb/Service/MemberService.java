@@ -13,6 +13,9 @@ public class MemberService {
     @Autowired
     private MemberDao memberDao;
 
+    @Autowired
+    private EmailService emailService;
+
     // 1. 회원가입 서비스
     public boolean doPostSignUp(MemberDto memberDto){
         // 1. 파일처리
@@ -24,7 +27,11 @@ public class MemberService {
             if(fileName == null){return false;}
         }
         memberDto.setUuidFile(fileName);
-        return memberDao.doPostSignup(memberDto);
+        boolean result = memberDao.doPostSignup(memberDto);
+        if(result){
+//            emailService.send();
+        }
+        return  result;
     }
 
     // 2. 로그인 서비스

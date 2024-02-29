@@ -13,8 +13,8 @@ public class MemberDto {
     private String id;
     private String pw;
     private String name;
-    private String email;
     private String phone;
+    private String email;
     // private String img;      // type = "text"(String)
     private MultipartFile img;  // type = "file"(MultipartFile) 첨부
     private String uuidFile;    // uuid + file

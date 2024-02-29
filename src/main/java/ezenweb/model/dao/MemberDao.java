@@ -13,13 +13,13 @@ public class MemberDao extends Dao {
     public boolean doPostSignup(MemberDto memberDto){
         boolean result = false;
         try {
-            String sql = "insert into member(id,pw,name,email,phone,img) values(?,?,?,?,?,?)";
+            String sql = "insert into member(id,pw,name,phone,email,img) values(?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, memberDto.getId());
             ps.setString(2, memberDto.getPw());
             ps.setString(3, memberDto.getName());
-            ps.setString(4, memberDto.getEmail());
-            ps.setString(5, memberDto.getPhone());
+            ps.setString(4, memberDto.getPhone());
+            ps.setString(5, memberDto.getEmail());
             // ps.setString(6, memberDto.getImg());
             ps.setString(6, memberDto.getUuidFile());
             int count = ps.executeUpdate();

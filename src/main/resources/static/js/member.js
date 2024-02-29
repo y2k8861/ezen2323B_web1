@@ -110,10 +110,11 @@ function emailCheck(){
 
     let msg="이메일 양식이 아닙니다.";
     checkArray[4] = false;
-
+    document.querySelector(".authreqBtn").disabled = true;
     if(이메일규칙.test(email)){
-        msg = "통과";
-        checkArray[4] = true;
+        msg = "인증요청가능";
+        document.querySelector(".authreqBtn").disabled = false;
+        
     }
     document.querySelector("#emailCheckBox").innerHTML = msg;
 }
@@ -168,6 +169,109 @@ function doPostSignup(){
             }
         }
     });
+}
+
+let timer = 2;
+
+// 테스트
+    // 정의 : setInterval(함수,밀리초)  : 특정 밀리초 마다 함수 실행
+    // 종료 : clearInterval(종료할 함수명)     : setInterval 종료
+    // let timerInter = setInterval(()=>{
+    //     // 1. 초 변수를 분/초 변환
+    //     let m = parseInt(timer/60); // 분
+    //     let s = parseInt(timer%60); // 분제외한 초
+
+    //     // 2. 시간을 두 자릿수로 표현
+    //     m = m<10? "0"+m : m;
+    //     s = s<10? "0"+s : s;
+
+    //     // 3. 시간 출력
+    //     document.querySelector(".authbox").innerHTML = `${m}분${s}초`;
+
+    //     // 4. 초 감소
+    //     timer --;
+
+    //     // 5. 만약에 초가 0보다 작아지면
+    //     if(timer<0){
+    //         clearInterval(timerInter);
+    //     }
+    // },1000);
+
+let authbox = document.querySelector(".authbox");
+let authreqBtn = document.querySelector(".authreqBtn");
+let timerInter = null;
+
+function authreq(){
+
+    let html = `
+        <span class="timebox">03:00</span>
+        <input type="text" class="ecodeinput" />
+        <button type="button" onclick="auth()">인증</button>
+    `;
+
+    authbox.innerHTML = html;
+
+    // 자바에게 인증 요청
+    $.ajax({
+        url : "/auth/email/req",
+        method : "get",
+        data : {"email":document.querySelector("#email").value},
+        success : (r)=>{
+            if(r){
+                timer = 30;
+                ontimer();
+                authreqBtn.disabled = true;
+            } else {
+                alert('관리자에게 문의하세요.');
+            }
+        }
+    });
+}
+
+function auth(){
+    let ecodeinput = document.querySelector(".ecodeinput").value;
+
+    $.ajax({
+        method: "get",
+        url: "/auth/email/check",
+        data: {"ecodeinput":ecodeinput},
+        success: (result)=>{
+            if(result){
+                checkArray[4] = true;
+                document.querySelector("#emailCheckBox").innerHTML = "통과"
+                clearInterval(timerInter);
+                authreqBtn.disabled = false;
+                authbox.innerHTML = "";
+            } else {
+                alert("인증번호가 다릅니다.");
+            }
+        }
+    });
+}
+
+function ontimer(){
+    timerInter = setInterval(()=>{
+        // 1. 초 변수를 분/초 변환
+        let m = parseInt(timer/60); // 분
+        let s = parseInt(timer%60); // 분제외한 초
+
+        // 2. 시간을 두 자릿수로 표현
+        m = m<10? "0"+m : m;
+        s = s<10? "0"+s : s;
+
+        // 3. 시간 출력
+        document.querySelector(".timebox").innerHTML = `${m}:${s}`;
+
+        // 4. 초 감소
+        timer --;
+
+        // 5. 만약에 초가 0보다 작아지면
+        if(timer<0){
+            clearInterval(timerInter);
+            authreqBtn.disabled = false;
+            authbox.innerHTML = "다시 인증 요청 해주세요.";
+        }
+    },1000);
 }
 
 function doPostLogin(){
