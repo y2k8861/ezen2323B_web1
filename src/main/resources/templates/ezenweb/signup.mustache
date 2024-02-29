@@ -1,49 +1,50 @@
 {{>ezenweb/header}}
     <link rel="stylesheet" href="/css/member.css" type="text/css">
+    <div class="formWrap">
     <h3>회원가입 페이지</h3>
     <form id="signUpForm" method="post" action="javascript:doPostSignup()">
 <!--    <form id="#signUpForm" method="post" action="/member/signup">-->
         <table>
             <tr>
-                <th><label>아이디 : </label></th>
+                <th><label>아이디</label></th>
                 <td>
                     <input type="text" name="id" id="id" onkeyup="idCheck(this)" />
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <th></th>
                 <td><span id="idCheckBox"></span></td>
             </tr>
             <tr>
-                <th><label>비밀번호 : </label></th>
+                <th><label>비밀번호</label></th>
                 <td><input type="password" name="pw" id="pw" onkeyup="pwCheck()" /></td>
             </tr>
             <tr>
-                <th><label>비밀번호확인 : </label></th>
+                <th><label>비밀번호확인</label></th>
                 <td><input type="password" name="pwCheckInput" id="pwCheckInput" onkeyup="pwCheck()" /></td>
             </tr>
             <tr>
-                <td></td>
+                <th></th>
                 <td><span id="pwCheckBox"></span></td>
             </tr>
             <tr>
-                <th><label>이름 : </label></th>
+                <th><label>이름</label></th>
                 <td><input type="text" name="name" id="name" onkeyup="nameCheck()" /></td>
             </tr>
             <tr>
-                <td></td>
+                <th></th>
                 <td><span id="nameCheckBox"></span></td>
             </tr>
             <tr>
-                <th><label>전화번호 : </label></th>
+                <th><label>전화번호</label></th>
                 <td><input type="text" name="phone" id="phone" onkeyup="phoneCheck()" /></td>
             </tr>
             <tr>
-                <td></td>
+                <th></th>
                 <td><span id="phoneCheckBox"></span></td>
             </tr>
              <tr>
-                <th><label>이메일 : </label></th>
+                <th><label>이메일</label></th>
                 <td>
                     <div>
                         <input type="text" name="email" id="email" onkeyup="emailCheck()" />
@@ -55,20 +56,20 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <th></th>
                 <td><span id="emailCheckBox"></span></td>
             </tr>
             <tr>
-                <th><label>사진 : </label></th>
+                <th><label>사진</label></th>
                 <td><input type="file" name="img" id="img" accept="image/*" onchange="preimg(this)" /></td>
             </tr>
             <tr>   <!-- 첨부파일 미리보기 -->
-                <th>미리보기 : </th>
+                <th>미리보기</th>
                 <td><img src="/img/upload/default.jpg" class="imgView" style="max-width:125px; max-height:80px;" /></td>
             </tr>
         </table>
         <button type="submit">가입하기</button>
     </form>
-
+    </div>
     <script src="/js/member.js"></script>
 {{>ezenweb/footer}}
