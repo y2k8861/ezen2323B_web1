@@ -65,7 +65,7 @@ public class MemberDao extends Dao {
             rs = ps.executeQuery();
             if(rs.next()){
                 memberDto = new MemberDto(
-                        rs.getInt(1),
+                        rs.getLong(1),
                         rs.getString(2),
                         null,   // 비밀번호 빼고
                         rs.getString(4),

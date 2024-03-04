@@ -1,9 +1,22 @@
 {{>ezenweb/header}}
-<h3>로그인 페이지</h3>
-    <label>id : </label> <input type="text" name="id" id="id" />
-    <label>pw : </label> <input type="password" name="pw" id="pw" />
-    <button onclick="doPostLogin()" type="button">로그인</button>
-    <a href="/member/signup">회원가입</a>
-
+<link rel="stylesheet" href="/css/member.css" type="text/css">
+<div class="loginWrap">
+    <div class="loginForm">
+        <ul>
+            <li>
+                아이디<input type="text" id="id"><br>
+            </li>
+            <li>
+                비밀번호<input type="password" id="pw"><br>
+            </li>
+        </ul>
+        <button class="btn" type="button" onclick="doPostLogin()">로그인</button>
+        <a href="/member/signup">
+            <button class="btn" type="button">
+                회원가입
+            </button>
+        </a>
+    </div>
+</div>
 <script src="/js/member.js"></script>
 {{>ezenweb/footer}}

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @ToString
 public class MemberDto {
-    private int no;             // type = "text"(자동타입변환 -> int)
+    private Long no;             // type = "text"(자동타입변환 -> int)
     private String id;
     private String pw;
     private String name;

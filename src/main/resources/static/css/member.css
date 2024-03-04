@@ -1,5 +1,85 @@
 #signUpForm table tr td > span {min-height: 1em; display: inline-block;}
-.formWrap {max-width: 600px; width: calc(100% - 40px); margin: 50px auto; border: 1px solid #ddd; box-shadow: 0px 1px 1px rgba(0,0,0,0.4); border-radius: 40px; padding: 30px 20px;}
-.formWrap table tr th {background-color: #3399cc; padding: 20px; color: #fff; font-weight: 700; text-align: center;}
-.formWrap table tr td {padding: 20px; }
+.formWrap {max-width: 600px; width: calc(100% - 40px); margin: 50px auto; border: 1px solid #ddd; box-shadow: 0px 1px 1px rgba(0,0,0,0.4); border-radius: 40px; padding: 30px 50px;}
+.formWrap h3 {text-align: center;}
+.formWrap table {margin: 30px 0; width: 100%; border-top: 1px solid #ddd;}
+.formWrap table tr th {background-color: #3399cc; padding: 20px; color: #fff; font-weight: 700; text-align: center; font-size: 1.3em;}
+.formWrap table tr td {padding: 20px; width: 70%; font-size: 1em;}
 .formWrap table tr {border-bottom: 1px solid #ddd;}
+.formWrap button {padding: 5px 20px; background-color: #111; color: #fff; transition: all 0.3s; border: none; outline: none; cursor: pointer;}
+.formWrap button:hover {background-color: blueviolet;}
+.formWrap .signUpBtn {width: 100%;}
+
+ul,li,ol {list-style: none;}
+
+.loginWrap {max-width: 600px; width: calc(100% - 40px); margin: 50px auto;}
+#signBox,#loginBox{
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px 40px;
+}
+#signBox>h1,#loginBox>h1{
+    text-align: center;
+    margin: 10px 0 60px 0;
+}
+.signUpForm,.loginForm{
+    padding: 40px 20px;
+    border: 1px solid #111;
+    border-radius: 20px;
+}
+.signUpForm>ul,.loginForm>ul{
+    padding: 0;
+}
+.signUpForm>ul>li,.loginForm>ul>li{
+    margin-bottom: 20px;
+}
+.signUpForm>ul>li>input,.loginForm>ul>li>input{
+    margin-right: 54px;
+    width: 100%;
+    padding-left: 4px;
+}
+.btn{
+    width: 95%;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius: 10px;
+    border:1px solid #333;
+}
+.btn:hover{
+    background-color: blueviolet;
+}
+#preimg{
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+}
+#email,#certi{
+    width: 75%;
+}
+.checkbox{
+    position: relative;
+    margin-bottom: 40px !important;
+}
+.checkbox>p{
+    margin-bottom: 0;
+}
+.idcheckbox,.pwcheckbox,.pwconfirmcheckbox,.namecheckbox,.phonecheckbox,.emailcheckbox,.timebox{
+    position: absolute;
+    bottom: -24px;
+    left: 0;
+    font-size: 14px;
+}
+.send{
+    position: absolute;
+    right: 0;
+    top: 27px;
+    width: 60px;
+    height: 31px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #d4d4d4;
+}
+.send:hover{
+    background-color: aquamarine;
+}

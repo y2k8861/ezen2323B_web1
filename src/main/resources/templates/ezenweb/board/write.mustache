@@ -1,0 +1,34 @@
+{{>ezenweb/header}}
+<div class="container">
+    <h3>글쓰기 페이지</h3>
+    <form class="boardWriteForm">
+        <div>
+            <label for="bcno">카테고라</label>
+            <select name="bcno" id="bcno">
+                <option value="1">자유</option>
+                <option value="2">노하우</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="btitle">제목</label>
+            <input name="btitle" id="btitle" type="text" />
+        </div>
+
+        <div>
+            <label for="bcontent">내용</label>
+            <textarea name="bcontent" id="bcontent"></textarea>
+        </div>
+
+        <div>
+            <label for="uploadfile">첨부파일</label>
+            <input name="uploadfile" id="uploadfile" type="file" />
+        </div>
+
+        <div class="btnWrap">
+            <button onclick="onWrite()" type="button">쓰기</button>
+        </div>
+    </form>
+    <script src="/js/board/write.js"></script>
+</div>
+{{>ezenweb/footer}}
