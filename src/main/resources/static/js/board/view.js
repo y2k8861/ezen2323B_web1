@@ -16,10 +16,10 @@ function onView(bno){
         data : {"bno":bno},
         success : (r)=>{
             console.log(r);
-            document.querySelector(".bcno").innerHTML = r.bcno;
+            document.querySelector(".bcno").innerHTML = r.bcname;
             document.querySelector(".btitle").innerHTML = r.btitle;
             document.querySelector(".bcontent").innerHTML = r.bcontent;
-            document.querySelector(".mno span").innerHTML = r.mno;
+            document.querySelector(".mno span").innerHTML = r.mid;
             document.querySelector(".bdate span").innerHTML = r.bdate;
             document.querySelector(".bview span").innerHTML = r.bview;
         }
