@@ -22,6 +22,29 @@ function onView(bno){
             document.querySelector(".mno span").innerHTML = r.mid;
             document.querySelector(".bdate span").innerHTML = r.bdate;
             document.querySelector(".bview span").innerHTML = r.bview;
+            document.querySelector(".bfile").innerHTML = `<a href="/board/file/download?bfile=${r.bfile}">${r.bfile}</a>`;
+            document.querySelector(".writeBtnWrap").innerHTML = `
+                <a class="btn" href="/board/update?bcno=${r.bno}">수정</a>
+                <button class='btn' onclick='onDeleteBoard(${r.bno})'>삭제</button>
+                <a class="btn" href="/board/">목록</a>
+            `;
+        }
+    });
+}
+
+// 2. 게시물 삭제 함수
+function onDeleteBoard(bno){
+    $.ajax({
+        url : "/board/delete.do",
+        method : "delete",
+        data : {"bno":bno},
+        success : (r)=>{
+            if(r){
+                alert('삭제성공');
+                location.href= '/board/'
+            } else {
+                alert('삭제실패');
+            }
         }
     });
 }

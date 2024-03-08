@@ -17,6 +17,7 @@ function onWrite(){
     let boardWriteForm = document.querySelector(".boardWriteForm");
     // 2. 폼 바이트(바이너리) 객체 변환[첨부파일 보낼때는 필수]
     let boardWriteFormData = new FormData(boardWriteForm);
+    console.log(boardWriteFormData);
     // 3. ajax 첨부파일 폼 전송
     $.ajax({
         url : "/board/write.do",

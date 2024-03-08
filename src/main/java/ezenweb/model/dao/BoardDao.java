@@ -3,9 +3,12 @@ package ezenweb.model.dao;
 import example.day04.리스트컬렉션1.Board;
 import ezenweb.model.dto.BoardDto;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -40,11 +43,14 @@ public class BoardDao extends Dao {
     }
 
     // 2. 전체 글 출력 호출
-    public List<BoardDto> doGetBoardViewList(int pageBoardSize, int startRow){
+    public List<Object> doGetBoardViewList(int pageBoardSize, int startRow,int bcno, String key, String keyword){
         System.out.println("BoardDao.doGetBoardViewList");
-        List<BoardDto> list = new ArrayList<>();
+        List<Object> list = new ArrayList<>();
         try {
-            String sql = "select * from board b inner join member m on b.mno = m.no inner join bcategory bc on b.bcno = bc.bcno order by b.bno desc limit ?,?";
+            String sql = "select * from board b inner join member m on b.mno = m.no inner join bcategory bc on b.bcno = bc.bcno ";
+            if(bcno > 0) sql += " where b.bcno = "+ bcno;
+            if(!keyword.isEmpty()) sql += " and " + key + " like '%"+ keyword + "%'";
+            sql += " order by b.bno desc limit ?,?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,startRow);
             ps.setInt(2,pageBoardSize);
@@ -64,6 +70,8 @@ public class BoardDao extends Dao {
                         rs.getString("img"),
                         rs.getString("bcname")
                 );
+                int compare  = boardDto.getBdate().split(" ")[0].compareTo( new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())));
+                if (compare == 0) boardDto.setBdate(boardDto.getBdate().split(" ")[1]);
                 list.add(boardDto);
             }
         } catch (Exception e){
@@ -73,10 +81,12 @@ public class BoardDao extends Dao {
     }
 
     // 2-2 전체 게시물 수 호출
-    public int getBoardSize(){
+    public int getBoardSize(int bcno, String key, String keyword){
         try {
-            String sql = "select count(*) from board";
-            ps = conn.prepareStatement(sql);
+            String sql = "select count(*) from board b inner join member m on b.mno = m.no";
+            if(bcno > 0) sql += " where b.bcno = "+ bcno;
+            if(!keyword.isEmpty())sql += " and " + key + " like '%"+ keyword + "%'";
+                    ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){return rs.getInt(1);}
         } catch (Exception e){
@@ -119,4 +129,62 @@ public class BoardDao extends Dao {
         System.out.println(boardDto);
         return boardDto;
     }
+
+    public boolean onBoardPlus(int bno){
+        try {
+            String sql = "select bview from board where bno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            rs = ps.executeQuery();
+            int bview = 0;
+            if(rs.next()){
+                bview = rs.getInt("bview");
+            }
+            sql = "update board set bview = ? where bno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,bview+1);
+            ps.setInt(2,bno);
+            int count = ps.executeUpdate();
+            if(count == 1) return true;
+        } catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+
+    // 4. 글 수정 처리
+    public boolean doUpdateBoard(BoardDto boardDto){
+        System.out.println("BoardDao.doUpdateBoard");
+        System.out.println("boardDto = " + boardDto);
+        try {
+            String sql = "update board set btitle = ?,bcontent=?,bcno=? where bno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,boardDto.getBtitle());
+            ps.setString(2,boardDto.getBcontent());
+            ps.setLong(3,boardDto.getBcno());
+            ps.setLong(4,boardDto.getBno());
+            int count = ps.executeUpdate();
+            if(count == 1) return true;
+        } catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+
+    // 5. 글 삭제 처리
+    public boolean doDeleteBoard(int bno){
+        System.out.println("BoardDao.doDeleteBoard");
+        System.out.println("bno = " + bno);
+        try {
+            String sql = "delete from board where bno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            int count = ps.executeUpdate();
+            if(count == 1) return true;
+        } catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
 }
+

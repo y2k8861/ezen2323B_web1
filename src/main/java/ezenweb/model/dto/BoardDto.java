@@ -21,9 +21,9 @@ public class BoardDto {
 
     private MultipartFile uploadfile;   // 실제 첨부파일. [DB처리X,서버에 저장]
 
-    String mid;
-    String mimg;
-    String bcname;
+    private String mid;
+    private String mimg;
+    private String bcname;
 }
 
 /*
