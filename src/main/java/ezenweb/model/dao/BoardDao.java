@@ -5,11 +5,10 @@ import ezenweb.model.dto.BoardDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class BoardDao extends Dao {
@@ -157,12 +156,13 @@ public class BoardDao extends Dao {
         System.out.println("BoardDao.doUpdateBoard");
         System.out.println("boardDto = " + boardDto);
         try {
-            String sql = "update board set btitle = ?,bcontent=?,bcno=? where bno = ?";
+            String sql = "update board set btitle = ?,bcontent=?,bcno=?,bfile=? where bno = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,boardDto.getBtitle());
             ps.setString(2,boardDto.getBcontent());
             ps.setLong(3,boardDto.getBcno());
-            ps.setLong(4,boardDto.getBno());
+            ps.setString(4,boardDto.getBfile());
+            ps.setLong(5,boardDto.getBno());
             int count = ps.executeUpdate();
             if(count == 1) return true;
         } catch (Exception e){
@@ -185,6 +185,86 @@ public class BoardDao extends Dao {
             System.out.println("e = " + e);
         }
         return false;
+    }
+
+    // 6. 작성자 인증
+    public boolean boardWriteAuth(long bno, String mid){
+        try {
+            String sql = "select * from board b inner join member m on b.mno = m.no where b.bno = ? and m.id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setLong(1,bno);
+            ps.setString(2,mid);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return false;
+    }
+
+    // 7. 댓글 등록
+    public boolean postReplyWrite(Map<String,String> map){
+        System.out.println("BoardDao.postReplyWrite");
+        System.out.println("map = " + map);
+
+        try {
+            String sql = "insert into breply(brcontent,brindex,mno,bno) values(?,?,?,?)";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, map.get("brcontent"));
+            ps.setString(2, map.get("brindex"));
+            ps.setString(3, map.get("mno"));
+            ps.setString(4, map.get("bno"));
+            int count = ps.executeUpdate();
+            if(count == 1) return true;
+        } catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return false;
+    }
+
+    // 8. 댓글 출력
+    public List<Map<String,Object>> getReplyDo(int bno){
+        System.out.println("BoardDao.getReplyDo");
+        List<Map<String,Object>> list = new ArrayList<>();
+        try {
+            String sql = "select * from breply br inner join member m on br.mno = m.no where brindex=0 and bno = "+bno;
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                Map<String,Object> map = new HashMap<>();
+                map.put("brno",rs.getString("brno"));
+                map.put("brcontent",rs.getString("brcontent"));
+                map.put("brindex",rs.getString("brindex"));
+                map.put("mno",rs.getString("mno"));
+                map.put("id",rs.getString("id"));
+                map.put("brdate",rs.getString("brdate"));
+
+                    String subSql = "select * from breply br inner join member m on br.mno = m.no where brindex = ? and bno = "+bno;
+                    ps = conn.prepareStatement(subSql);
+                    ps.setInt(1, rs.getInt("brno"));
+                    ResultSet rs2 = ps.executeQuery();
+                    List<Map<String,Object>> sublist = new ArrayList<>();
+                    while (rs2.next()){
+                        Map<String,Object> subMap = new HashMap<>();
+                        subMap.put("brno",rs2.getString("brno"));
+                        subMap.put("brcontent",rs2.getString("brcontent"));
+                        subMap.put("brindex",rs2.getString("brindex"));
+                        subMap.put("mno",rs2.getString("mno"));
+                        subMap.put("id",rs2.getString("id"));
+                        subMap.put("brdate",rs2.getString("brdate"));
+                        sublist.add(subMap);
+                    }
+                map.put("subreply",sublist);
+                list.add(map);
+            }
+        } catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return list;
     }
 }
 

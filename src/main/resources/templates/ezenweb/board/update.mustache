@@ -1,0 +1,40 @@
+{{>ezenweb/header}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/lang/summernote-ko-KR.min.js" ></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css"  />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js" ></script>
+<div class="container">
+    <h3>글수정 페이지</h3>
+    <form class="boardWriteForm">
+        <div>
+            <label for="bcno">카테고라</label>
+            <select name="bcno" id="bcno">
+                <option value="1">자유</option>
+                <option value="2">노하우</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="btitle">제목</label>
+            <input name="btitle" id="btitle" type="text" />
+        </div>
+
+        <div>
+            <label for="bcontent">내용</label>
+            <textarea name="bcontent" id="bcontent"></textarea>
+        </div>
+
+        <div>
+            <label for="uploadfile">첨부파일</label>
+            <input name="uploadfile" id="uploadfile" type="file" />
+        </div>
+
+        <div class="btnWrap">
+            <button onclick="onUpdate()" type="button">수정</button>
+            <a class="btn" href="/board/">목록</a>
+        </div>
+    </form>
+    <script src="/js/board/update.js"></script>
+</div>
+
+{{>ezenweb/footer}}

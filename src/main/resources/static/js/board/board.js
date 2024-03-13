@@ -2,7 +2,7 @@
 let pageObject = {
     page : 1,           // 현재 페이지
     pageBoardSize : 5,   // 한재 페이지당 게시물 수
-    // bcno : 0,           // 현재 카테고리
+    bcno : 0,           // 현재 카테고리
     key : 'b.title',    // 현재 검색 key
     keyword : ''        // 현재 검색 keyword
 }

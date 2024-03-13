@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -86,6 +87,18 @@ public class BoardService {
     // 4. 글 수정 처리
     public boolean doUpdateBoard(BoardDto boardDto){
         System.out.println("BoardService.doUpdateBoard");
+        String bfile = boardDao.doGetBoardView(((int)boardDto.getBno())).getBfile();
+        System.out.println("기존 파일"+bfile);
+        System.out.println("보드서비스"+boardDto.getUploadfile());
+        System.out.println(boardDto.getUploadfile().isEmpty());
+        if(!boardDto.getUploadfile().isEmpty()){
+            String fileName = fileService.fileUpload(boardDto.getUploadfile());
+            System.out.println("등록 파일"+bfile);
+            if(fileName != null){
+                boardDto.setBfile(fileName);
+                fileService.fileDelete(bfile);
+            } else {return false;}
+        } else {boardDto.setBfile(bfile);}
         return boardDao.doUpdateBoard(boardDto);
     }
 
@@ -105,5 +118,24 @@ public class BoardService {
     // 6. 조회수
     public boolean onBoardPlus(int bno){
         return boardDao.onBoardPlus(bno);
+    }
+
+    // 작성자 인증
+    public boolean boardWriteAuth(long bno, String mid){
+
+        return boardDao.boardWriteAuth(bno, mid);
+    }
+
+    // 7. 댓글 등록
+    public boolean postReplyWrite(Map<String,String> map){
+        System.out.println("BoardService.postReplyWrite");
+        System.out.println("map = " + map);
+        return boardDao.postReplyWrite(map);
+    }
+
+    // 8. 댓글 출력
+    public List<Map<String,Object>> getReplyDo(int bno){
+        System.out.println("BoardService.getReplyDo");
+        return boardDao.getReplyDo(bno);
     }
 }

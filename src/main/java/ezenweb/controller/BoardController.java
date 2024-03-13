@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/board")    // 공통 URL
@@ -79,7 +80,22 @@ public class BoardController {
     @ResponseBody
     public boolean doUpdateBoard(BoardDto boardDto){
         System.out.println("BoardController.doUpdateBoard");
-        return boardService.doUpdateBoard(boardDto);
+        System.out.println("boardDto = " + boardDto);
+        System.out.println("이미지"+boardDto.getUploadfile());
+
+        // 유효성 검사
+            // 현재 로그인된 아이디.(세션)
+        Object object = request.getSession().getAttribute("loginDto");
+        if(object != null) {
+            String mid = (String)object;
+            boolean result = boardService.boardWriteAuth(boardDto.getBno(),mid);
+            if(result) {
+                return boardService.doUpdateBoard(boardDto);
+            }
+        }
+            // 현재 수정할 게시물의 작성자 아이디.
+
+        return false;
     }
 
     // 5. 글 삭제 처리              // board/delete.do      DELETE       게시물번호
@@ -87,7 +103,19 @@ public class BoardController {
     @ResponseBody
     public boolean doDeleteBoard(@RequestParam int bno){
         System.out.println("BoardController.doDeleteBoard");
-        return boardService.doDeleteBoard(bno);
+        // 유효성 검사
+        // 현재 로그인된 아이디.(세션)
+        Object object = request.getSession().getAttribute("loginDto");
+        if(object != null) {
+            String mid = (String)object;
+            boolean result = boardService.boardWriteAuth(bno,mid);
+            if(result) {
+                return boardService.doDeleteBoard(bno);
+            }
+        }
+        // 현재 수정할 게시물의 작성자 아이디.
+
+        return false;
     }
 
     // 6 다운로드 처리 (함수 만들때 고민할점. 1, 매개변수 : 파일명 2. 반환 3. 사용처)
@@ -97,6 +125,28 @@ public class BoardController {
         System.out.println("BoardController.getBoardFileDownload");
         fileService.fileDownload(bfile);
         return ;
+    }
+
+    // 7. 댓글 작성 (brcontent,brindex,mno,bno)
+    @PostMapping("/reply/write.do")
+    @ResponseBody
+    public boolean postReplyWrite(@RequestParam Map<String,String> map){
+        System.out.println("BoardController.postReplyWrite");
+        System.out.println("map = " + map);
+        Object object = request.getSession().getAttribute("loginDto");
+        String mid = (String)object;
+        long mno = memberService.doGetLoginInfo(mid).getNo();
+        map.put("mno",mno+"");
+        return boardService.postReplyWrite(map);
+    }
+
+    // 8. 댓글 출력 (brno,brcontent,brindex,mno)
+    @GetMapping("/reply/do")
+    @ResponseBody
+    public List<Map<String,Object>> getReplyDo(int bno){
+        System.out.println("BoardController.getReplyDo");
+        System.out.println("bno = " + bno);
+        return boardService.getReplyDo(bno);
     }
 
     // ======================================================== //
@@ -119,6 +169,10 @@ public class BoardController {
     }
 
     // 4. 글수정 페이지 이동        // board/update          GET
+    @GetMapping("/update")
+    public String getBoardUpdate(){
+        return "/ezenweb/board/update";
+    }
 
 
     // 5. 조회수

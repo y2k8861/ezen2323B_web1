@@ -36,3 +36,19 @@ table td a:hover {text-decoration:underline}
 .active>.page-link, .page-link.active {background : #ffc0cb; border-color: #ffc0cb}
 .page-link:hover {color: #ffc0cb;}
  .page-link {color:333;}
+
+ .viewWrap {margin:20px 0;}
+ .viewHead {margin-bottom:20px; padding-bottom: 20px; border-bottom:1px solid #ddd;}
+ .bcno {margin-bottom:10px; font-size:20px;}
+ .btitle {margin-bottom:10pxl font-size:28px;}
+ .viewInfo {display:flex; flex-flow:row wrap; align-items: center; justify-content:flex-end;}
+ .viewInfo p {margin:0;}
+ .viewInfo p:nth-child(n+2) {margin-left:15px;}
+ .bcontent {padding-bottom:20px; margin-bottom:20px; min-height:500px; border-bottom:1px solid #ddd;}
+ .bfile {padding:20px 0; border-bottom:1px solid #ddd;}
+ .replyListBox {border-top:1px solid #ddd;}
+ .replyListBox .replyView {display:flex; flex-flow:row wrap; border-bottom:1px solid #ddd; padding:10px 5px}
+ .replyListBox .replyView .brcontent {width : 400px; margin:0;}
+ .replyListBox .replyView .mid {width : 150px; margin:0}
+ .replyListBox .replyView .brdate {width : 200px; margin:0}
+ .subReply {padding-left:15px;}

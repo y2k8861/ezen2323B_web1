@@ -13,16 +13,25 @@
                     <p class="bview">조회수 : <span></span></p>
                 </div>
             </div>
+
+            <div class="bcontent"></div>
+
+            <div class="bfile"></div>
+
+            <div class="replyBox">
+                <div>
+                    <textarea class="brcontent brcontent0"></textarea>
+                    <button onclick="onReplyWrite(0)" type="button">댓글작성</button>
+                </div>
+            </div>
+            <div class="replyListBox">
+
+            </div>
         </div>
 
-        <div class="bfile"></div>
 
-        <div class="bcontent"></div>
 
         <div class="writeBtnWrap">
-            <a class="btn" href="/board/update?bcno=">수정</a>
-            <a class="btn" href="/board/delate">삭제</a>
-            <a class="btn" href="/board/">목록</a>
         </div>
     </div>
 <script src="/js/board/view.js"></script>

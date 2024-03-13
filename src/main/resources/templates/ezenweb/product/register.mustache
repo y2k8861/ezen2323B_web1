@@ -1,0 +1,28 @@
+{{>ezenweb/header}}
+<div class="container">
+    <h3>상품 등록 페이지</h3>
+    <form class="productRegisterForm">
+        <div class="inputWrap">
+            <label for="">제품명</label>
+            <input type="text" name="pname" />
+        </div>
+        <div class="inputWrap">
+            <label for="">제품가격</label>
+            <input type="text" name="pprice" />
+        </div>
+        <div class="inputWrap">
+            <label for="">제품내용</label>
+            <textarea name="pcontent"></textarea>
+        </div>
+        <div class="inputWrap">
+            <label for="pcontent">제품이미지</label>
+            <input type="file" name="uploadFiles" multiple>
+        </div>
+        <button type="button" onclick="onRegister()"> 등록</button>
+    </form>
+    <div id="map" style="width:100%;height:350px;"></div>
+</div>
+
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=49211c5a2bc7347bf4c96f05e0a5bfee&libraries=services"></script>
+<script src="/js/product/register.js"></script>
+{{>ezenweb/footer}}
